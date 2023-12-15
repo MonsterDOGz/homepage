@@ -34,6 +34,11 @@ jobs:
             git checkout main;
             git pull origin main; # 拉取最新代码
 
+            # 重启后端服务
+            cd /root/homepage/server;
+            yarn;
+            yarn prd;
+
           "
 
       - name: delete id_rsa # 删除私钥
