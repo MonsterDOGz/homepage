@@ -4,4 +4,4 @@ import App from './App.vue'
 
 createApp(App).mount('#app')
 
-console.log('Hello from main.ts')
+console.log('Hello from main.ts!')
