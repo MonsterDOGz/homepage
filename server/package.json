@@ -1,0 +1,22 @@
+{
+  "name": "homepage-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon bin/www",
+    "prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json"
+  },
+  "repository": "https://github.com/MonsterDOGz/homepage.git",
+  "author": "MonsterDog",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "koa": "^2.14.2",
+    "koa-router": "^12.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.0.2"
+  }
+}
