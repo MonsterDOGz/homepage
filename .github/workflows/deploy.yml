@@ -35,7 +35,7 @@ jobs:
             git pull origin main; # 拉取最新代码
 
             # 重启后端服务
-            cd /root/homepage/serve;
+            cd /root/homepage/server;
             yarn;
             yarn prd;
 
