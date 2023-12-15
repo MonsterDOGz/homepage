@@ -9,6 +9,8 @@ on:
       - 'src/**'
       - 'bin/*'
       - 'package.json'
+      - 'page/**'
+      - 'server/**'
 
 jobs:
   deploy:
