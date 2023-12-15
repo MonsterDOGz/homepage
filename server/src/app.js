@@ -10,6 +10,5 @@ app.use(router.routes(), router.allowedMethods())
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
-console.log('test3')
 
 module.exports = app
