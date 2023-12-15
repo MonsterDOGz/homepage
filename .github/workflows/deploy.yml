@@ -26,7 +26,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan 121.40.120.88 >> ~/.ssh/known_hosts
 
-      - name: deploy # 自动发布1
+      - name: deploy # 自动发布
         run: |
           ssh root@121.40.120.88 "
             # 注意：服务器已经 git clone 代码到 /root/homepage 目录下了
