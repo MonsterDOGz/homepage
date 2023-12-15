@@ -24,7 +24,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan 121.40.120.88 >> ~/.ssh/known_hosts
 
-      - name: deploy # 自动发布4
+      - name: deploy # 自动发布
         run: |
           ssh root@121.40.120.88 "
             # 注意：服务器已经 git clone 代码到 /root/homepage 目录下了
@@ -39,6 +39,10 @@ jobs:
             yarn;
             yarn prd;
 
+            # 重启前端服务
+            cd /root/homepage/page;
+            yarn;
+            yarn build;
           "
 
       - name: delete id_rsa # 删除私钥
