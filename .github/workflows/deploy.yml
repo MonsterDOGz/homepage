@@ -36,13 +36,13 @@ jobs:
 
             # 重启后端服务
             cd /root/homepage/serve;
-            npm install;
-            npm run prd;
+            yarn;
+            yarn prd;
 
             # 重启前端服务
             cd /root/homepage/page;
-            npm install;
-            npm run build;
+            yarn;
+            yarn build;
           "
 
       - name: delete id_rsa # 删除私钥

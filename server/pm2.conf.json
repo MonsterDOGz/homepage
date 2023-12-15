@@ -1,6 +1,6 @@
 {
     "apps": {
-        "name": "myblog-server",
+        "name": "homepage-server",
         "script": "bin/www",
         "watch": true,
         "ignore_watch": [
