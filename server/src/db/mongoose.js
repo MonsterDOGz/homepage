@@ -4,11 +4,9 @@ import mongoose from 'mongoose'
 const url = MONGODB_CONF.url;
 const dbName = MONGODB_CONF.dbName;
 
-console.log('url', url)
-console.log('dbName', dbName)
-
-mongoose.connect(`${url}/${dbName}?authSource=admin`, {
+mongoose.connect(`${url}/${dbName}`, {
   // 配置
+  authSource: 'admin' // 指定验证数据库
 }).then(() => {
   console.log('MongoDB连接成功')
 }).catch(err => {
