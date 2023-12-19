@@ -45,7 +45,7 @@ if (isProd) {
 
   // 线上的 mongodb 配置
   MONGODB_CONF = {
-    url: 'mongodb://admin:123456@127.0.0.1:27017',
+    url: 'mongodb://zhoujie:123456@127.0.0.1:27017',
     dbName: 'homepage'
   }
 }
