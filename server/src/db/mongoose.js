@@ -6,6 +6,7 @@ const dbName = MONGODB_CONF.dbName;
 
 mongoose.connect(`${url}/${dbName}`, {
   // 配置
+  authSource: 'admin', // 指定认证数据库
 }).then(() => {
   console.log('MongoDB连接成功')
 }).catch(err => {
