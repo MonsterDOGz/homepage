@@ -2,7 +2,7 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:35:07
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2023-12-19 17:00:00
+ * @LastEditTime: 2023-12-19 17:14:40
  * @FilePath: \homepage\server\src\conf\db.js
  * @Description: 数据库配置文件
  */
@@ -45,7 +45,7 @@ if (isProd) {
 
   // 线上的 mongodb 配置
   MONGODB_CONF = {
-    url: 'mongodb://admin:123456@127.0.0.1:27017',
+    url: 'mongodb://zhoujie:123456@127.0.0.1:27017',
     dbName: 'homepage'
   }
 }

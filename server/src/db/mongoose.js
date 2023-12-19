@@ -4,6 +4,9 @@ import mongoose from 'mongoose'
 const url = MONGODB_CONF.url;
 const dbName = MONGODB_CONF.dbName;
 
+console.log('url', url)
+console.log('dbName', dbName)
+
 mongoose.connect(`${url}/${dbName}?authSource=admin`, {
   // 配置
 }).then(() => {
