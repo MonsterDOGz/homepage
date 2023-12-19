@@ -12,7 +12,6 @@
   "author": "MonsterDog",
   "license": "MIT",
   "dependencies": {
-    "core-js": "^3.34.0",
     "debug": "^4.3.4",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.1",
