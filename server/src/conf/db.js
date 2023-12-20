@@ -2,7 +2,7 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:35:07
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2023-12-20 11:03:41
+ * @LastEditTime: 2023-12-20 11:30:45
  * @FilePath: \homepage\server\src\conf\db.js
  * @Description: 数据库配置文件
  */
@@ -23,7 +23,7 @@ let REDIS_CONF = {
 // }
 
 let MONGODB_CONF = {
-  url: 'mongodb://127.0.0.1:27017',
+  url: 'mongodb://zhoujie:123456@127.0.0.1:27017',
   dbName: 'homepage'
 }
 
