@@ -2,8 +2,8 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:35:50
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2023-12-19 09:51:05
- * @FilePath: \server\src\controller\user.js
+ * @LastEditTime: 2023-12-20 10:01:31
+ * @FilePath: \homepage\server\src\controller\user.js
  * @Description: user controller
  */
 
@@ -13,12 +13,12 @@ import { registerUserNameNotExistInfo, registerUserNameExistInfo, registerFailIn
 
 /**
  * @description: 用户名是否存在
- * @param {string} userName
+ * @param {string} username
  * @return {*}
  */
-async function isExist(userName) {
-  const userInfo = await getUserInfo(userName)
-  if (userInfo) {
+async function isExist(username) {
+  const userInfo = await getUserInfo(username)
+  if (userInfo && userInfo.length) {
     // 已存在
     return new SuccessModel(userInfo)
   } else {
@@ -29,23 +29,23 @@ async function isExist(userName) {
 
 /**
  * @description: 注册
- * @param {string} userName
+ * @param {string} username
  * @param {string} password
- * @param {string} nickName
+ * @param {string} nickname
  * @return {*}
  */
-async function register({ userName, password, nickName }) {
-  const userInfo = await getUserInfo(userName)
-  if (userInfo) {
+async function register({ username, password, nickname }) {
+  const userInfo = await getUserInfo(username)
+  if (userInfo && userInfo.length) {
     // 用户名已存在
     return new ErrorModel(registerUserNameExistInfo)
   }
 
   try{
     await createUser({
-      userName,
+      username,
       password,
-      nickName
+      nickname
     })
     return new SuccessModel()
   } catch (e) {

@@ -5,7 +5,7 @@ import User from '../model/User.js'
 
   // 创建用户
   const zhoujie = await User.create({
-    userName: 'liyanjia',
+    username: 'zhoujie',
     password: '123'
   })
   console.log('zhoujie', zhoujie)
@@ -16,7 +16,7 @@ import User from '../model/User.js'
 
   // 模拟登录
   // const zhoujie = await User.find({
-  //   userName: 'zhoujie',
+  //   username: 'liyanjia',
   //   password: '123'
   // })
   // console.log('zhoujie', zhoujie)

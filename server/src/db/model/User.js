@@ -3,13 +3,13 @@ import mongoose from '../mongoose.js'
 
 // 用 Scheme 定义数据规范
 const UserSchema = mongoose.Schema({
-  userName: {
+  username: {
     type: String,
     requires: true, // 必须
     unique: true // 唯一，不能重复
   },
   password: String,
-  nickName: String
+  nickname: String
 })
 
 // Model 对应 collection

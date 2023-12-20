@@ -2,8 +2,8 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:42:18
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2023-12-19 09:43:29
- * @FilePath: \server\src\services\user.js
+ * @LastEditTime: 2023-12-20 10:07:09
+ * @FilePath: \homepage\server\src\services\user.js
  * @Description: user services
  */
 
@@ -12,49 +12,50 @@ import { formatUser } from './_format.js'
 
 /**
  * @description: 获取用户信息
- * @param {string} userName 用户名
+ * @param {string} username 用户名
  * @param {string} password 密码
  * @return {*}
  */
-async function getUserInfo(userName, password) {
+async function getUserInfo(username, password) {
   // 查询条件
   const whereOpt = {
-    userName
+    username
   }
+
   if (password) {
     Object.assign(whereOpt, { password })
   }
   
   // 查询
-  const result = await User.findOne({
-    attributes: ['id', 'userName', 'nickName'],
-    where: whereOpt
-  })
+  const result = await User.find({
+    ...whereOpt
+  }, ['id', 'username', 'nickname'])
+
   if (result == null) {
     // 未找到
     return result
   }
 
   // 格式化
-  const formatRes = formatUser(result.dataValues)
+  const formatRes = formatUser(result)
 
   return formatRes
 }
 
 /**
  * @description: 创建用户
- * @param {string} userName 用户名
+ * @param {string} username 用户名
  * @param {string} password 密码
- * @param {string} nickName 昵称
+ * @param {string} nickname 昵称
  * @return {*}
  */
-async function createUser({ userName, password, nickName }) {
+async function createUser({ username, password, nickname }) {
   const result = await User.create({
-    userName,
+    username,
     password,
-    nickName: nickName ? nickName : userName
+    nickname: nickname ? nickname : username
   })
-  return result.dataValues
+  return result
 }
 
 export {
