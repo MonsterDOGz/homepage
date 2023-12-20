@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon bin/www.js",
-    "prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json"
+    "prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json",
+    "lint": "eslint --ext .js src --fix"
   },
   "repository": "https://github.com/MonsterDOGz/homepage.git",
   "author": "MonsterDog",
@@ -27,8 +28,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
+    "@babel/eslint-parser": "^7.23.3",
     "@babel/preset-env": "^7.23.6",
     "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
     "nodemon": "^3.0.2"
-  }
+  },
+  "pre-commit": [
+    "lint"
+  ]
 }

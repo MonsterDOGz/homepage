@@ -2,14 +2,14 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:35:50
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2023-12-20 10:01:31
+ * @LastEditTime: 2023-12-20 15:15:44
  * @FilePath: \homepage\server\src\controller\user.js
  * @Description: user controller
  */
 
 import { getUserInfo, createUser } from '../services/user.js'
 import { SuccessModel, ErrorModel } from '../model/ResModel.js'
-import { registerUserNameNotExistInfo, registerUserNameExistInfo, registerFailInfo } from '../model/ErrorInfo.js'
+import { registerUserNameNotExistInfo, registerUserNameExistInfo, registerFailInfo, loginFailInfo } from '../model/ErrorInfo.js'
 
 /**
  * @description: 用户名是否存在
@@ -18,9 +18,9 @@ import { registerUserNameNotExistInfo, registerUserNameExistInfo, registerFailIn
  */
 async function isExist(username) {
   const userInfo = await getUserInfo(username)
-  if (userInfo && userInfo.length) {
+  if (userInfo) {
     // 已存在
-    return new SuccessModel(userInfo)
+    return new SuccessModel(userInfo, '用户名已存在')
   } else {
     // 不存在
     return new ErrorModel(registerUserNameNotExistInfo)
@@ -36,7 +36,7 @@ async function isExist(username) {
  */
 async function register({ username, password, nickname }) {
   const userInfo = await getUserInfo(username)
-  if (userInfo && userInfo.length) {
+  if (userInfo) {
     // 用户名已存在
     return new ErrorModel(registerUserNameExistInfo)
   }
@@ -47,14 +47,34 @@ async function register({ username, password, nickname }) {
       password,
       nickname
     })
-    return new SuccessModel()
+    return new SuccessModel(null, '注册成功')
   } catch (e) {
     console.error(e.message, e.stack)
     return new ErrorModel(registerFailInfo)
   }
 }
 
+/**
+ * @description: 登录
+ * @param {*} username
+ * @param {*} password
+ * @return {*}
+ */
+async function login(ctx, {username, password}) {
+  const userInfo = await getUserInfo(username, password)
+  if (!userInfo) {
+    // 登录失败
+    return new ErrorModel(loginFailInfo)
+  }
+
+  // 登录成功
+  ctx.session.userInfo = userInfo
+
+  return new SuccessModel(userInfo, '登录成功')
+}
+
 export {
   isExist,
-  register
+  register,
+  login
 }

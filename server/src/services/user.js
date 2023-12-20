@@ -2,7 +2,7 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:42:18
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2023-12-20 10:07:09
+ * @LastEditTime: 2023-12-20 14:30:33
  * @FilePath: \homepage\server\src\services\user.js
  * @Description: user services
  */
@@ -27,7 +27,7 @@ async function getUserInfo(username, password) {
   }
   
   // 查询
-  const result = await User.find({
+  const result = await User.findOne({
     ...whereOpt
   }, ['id', 'username', 'nickname'])
 

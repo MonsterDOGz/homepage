@@ -8,8 +8,8 @@ router.prefix('/api')
 // 测试接口
 router.get('/test', async (ctx, next) => {
   ctx.body = {
-      errno: 0,
-      msg: `koa2 test OK 3, ENV: ${process.env.NODE_ENV}`
+    errno: 0,
+    msg: `koa2 test OK 3, ENV: ${process.env.NODE_ENV}`
   }
 })
 

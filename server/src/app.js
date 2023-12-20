@@ -25,7 +25,7 @@ onerror(app, onerrorConf)
 
 // middlewares
 app.use(bodyparser({
-    enableTypes:['json', 'form', 'text']
+  enableTypes:['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
@@ -51,7 +51,7 @@ app.use(userRouter.routes(), userRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
-    console.error('server error', err, ctx)
-});
+  console.error('server error', err, ctx)
+})
 
 export default app

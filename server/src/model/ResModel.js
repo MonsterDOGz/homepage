@@ -28,10 +28,11 @@ class BaseModel {
  * @return {*}
  */
 class SuccessModel extends BaseModel {
-  constructor(data = {}) {
+  constructor(data = {}, message) {
     super({
       errno: 0,
-      data
+      data,
+      message
     })
   }
 }
