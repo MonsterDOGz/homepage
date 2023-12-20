@@ -1,8 +1,8 @@
 import { MONGODB_CONF } from '../conf/db.js'
 import mongoose from 'mongoose'
 
-const url = MONGODB_CONF.url;
-const dbName = MONGODB_CONF.dbName;
+const url = MONGODB_CONF.url
+const dbName = MONGODB_CONF.dbName
 
 mongoose.connect(`${url}/${dbName}`, {
   // 配置
