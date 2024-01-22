@@ -8,7 +8,10 @@ const UserSchema = mongoose.Schema({
     requires: true, // 必须
     unique: true // 唯一，不能重复
   },
-  password: String,
+  password: {
+    type: String,
+    requires: true, // 必须
+  },
   nickname: String
 })
 

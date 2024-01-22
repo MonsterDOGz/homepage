@@ -1,0 +1,1 @@
+export const serviceOne = '/api'

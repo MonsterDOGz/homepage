@@ -9,9 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.11"
+    "@types/lodash": "^4.14.202",
+    "axios": "^1.6.5",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.10",
+    "lodash": "^4.17.21",
+    "pinia": "^2.1.7",
+    "sass": "^1.69.7",
+    "swiper": "^11.0.5",
+    "vue": "^3.3.11",
+    "vue-router": "4",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.1",
+    "@types/node": "^20.10.6",
     "@vitejs/plugin-vue": "^4.5.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",

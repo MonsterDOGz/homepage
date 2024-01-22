@@ -2,8 +2,8 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:37:39
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2023-12-18 16:41:11
- * @FilePath: \server\src\model\ResModel.js
+ * @LastEditTime: 2024-01-19 15:01:46
+ * @FilePath: \homepage\server\src\model\ResModel.js
  * @Description: res 的数据模型
  */
 
@@ -12,14 +12,10 @@
  * @return {*}
  */
 class BaseModel {
-  constructor({ errno, data, message }) {
-    this.errno = errno
-    if (data) {
-      this.data = data
-    }
-    if (message) {
-      this.message = message
-    }
+  constructor({ code, data, message }) {
+    this.code = code
+    this.data = data
+    this.message = message
   }
 }
 
@@ -28,9 +24,9 @@ class BaseModel {
  * @return {*}
  */
 class SuccessModel extends BaseModel {
-  constructor(data = {}, message) {
+  constructor(data = null, message = '') {
     super({
-      errno: 0,
+      code: 0,
       data,
       message
     })
@@ -42,9 +38,10 @@ class SuccessModel extends BaseModel {
  * @return {*}
  */
 class ErrorModel extends BaseModel {
-  constructor({ errno, message }) {
+  constructor({ code, data = null, message = '' }) {
     super({
-      errno,
+      code,
+      data,
       message
     })
   }

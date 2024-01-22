@@ -11,6 +11,7 @@ import { isProd } from './utils/env.js'
 
 import index from './routes/index.js'
 import userRouter from './routes/user.js'
+import todolistRouter from './routes/todolist.js'
 
 const app = new Koa()
 
@@ -48,6 +49,7 @@ app.use(session({
 // 注册路由
 app.use(index.routes(), index.allowedMethods())
 app.use(userRouter.routes(), userRouter.allowedMethods())
+app.use(todolistRouter.routes(), todolistRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
