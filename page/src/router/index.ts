@@ -14,10 +14,17 @@ const router = createRouter({
   routes,
 })
 
+const whiteList = [
+  'Register',
+  'Login'
+]
+
 router.beforeEach((to) => {
   const { isAuthenticated } = useUserStore()
 
   if (
+    // 白名单
+    whiteList.indexOf(to.name as string) === -1 &&
     // 检查用户是否已登录
     !isAuthenticated &&
     // ❗️ 避免无限重定向
