@@ -44,7 +44,7 @@ const createTodo = async () => {
   }
 }
 
-// 删除
+// 删除1
 const delTodo = async (data: IList) => {
   const { code, message } = await apiDel({ id: data._id})
 
