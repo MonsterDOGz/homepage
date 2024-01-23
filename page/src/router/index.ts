@@ -25,7 +25,7 @@ router.beforeEach((to) => {
   if (
     // 白名单
     whiteList.indexOf(to.name as string) === -1 &&
-    // 检查用户是否已登录
+    // 检查用户是否已登录1
     !isAuthenticated &&
     // ❗️ 避免无限重定向
     to.name !== 'Login'
