@@ -25,14 +25,12 @@ const { logout } = useUserStore()
   text-align: center;
   font-size: 0.24rem;
   font-weight: 600;
-  color: #333;
 }
 .header__user {
   position: absolute;
   top: 50%;
   right: 2vw;
   transform: translateY(-50%);
-  font-size: 0.14rem;
   font-weight: normal;
   .header__user-profile {
     width: 6vw;

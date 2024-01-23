@@ -53,18 +53,36 @@ const handleRegister = async () => {
 </script>
 
 <template>
-  <h1>注册</h1>
-  <form @submit.prevent="handleRegister" class="login-form">
-    <p>
-      <input type="text" v-model="username" placeholder="用户名" @input="inputUsername" />
-      <div v-show="showIsExist">用户名已存在</div>
-    </p>
-    <p><input type="password" v-model="password" placeholder="密码" @input="handleCheckPassword" /></p>
-    <p>
-      <input type="password" v-model="passwordRepeat" placeholder="确认密码" @input="handleCheckPassword" />
-      <div v-show="showPasswordNotSame">前后两次密码不一致</div>
-    </p>
-    <p><input type="text" v-model="nickname" placeholder="昵称" /></p>
-    <p><button type="submit">注册</button></p>
-  </form>
+  <div class="register">
+    <div class="register-title">注册</div>
+    <form @submit.prevent="handleRegister" class="register-form">
+      <p>
+        <input type="text" v-model="username" placeholder="用户名" @input="inputUsername" />
+        <div v-show="showIsExist">用户名已存在</div>
+      </p>
+      <p><input type="password" v-model="password" placeholder="密码" @input="handleCheckPassword" /></p>
+      <p>
+        <input type="password" v-model="passwordRepeat" placeholder="确认密码" @input="handleCheckPassword" />
+        <div v-show="showPasswordNotSame">前后两次密码不一致</div>
+      </p>
+      <p><input type="text" v-model="nickname" placeholder="昵称" /></p>
+      <p><button type="submit">注册</button></p>
+    </form>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.register {
+  padding-top: 2rem;
+  .register-title {
+    font-size: 0.5rem;
+    line-height: 1rem;
+    font-weight: 700;
+  }
+  .register-form {
+    p {
+      margin: 0.2rem 0;
+    }
+  }
+}
+</style>

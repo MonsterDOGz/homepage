@@ -14,7 +14,7 @@ const handleLogin = async () => {
 
 <template>
   <div class="login">
-    <h1>Welcome</h1>
+    <div class="login-title">Welcome</div>
     <form @submit.prevent="handleLogin" class="login-form">
       <p><input type="text" v-model="username" placeholder="用户名" /></p>
       <p><input type="password" v-model="password" placeholder="密码" /></p>
@@ -25,12 +25,15 @@ const handleLogin = async () => {
 
 <style lang="scss" scoped>
 .login {
+  padding-top: 2rem;
+  .login-title {
+    font-size: 0.5rem;
+    line-height: 1rem;
+    font-weight: 700;
+  }
   .login-form {
     p {
-      margin: 20px 0;
-    }
-    button {
-      background-color: #eee;
+      margin: 0.3rem 0;
     }
   }
 }

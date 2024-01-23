@@ -63,45 +63,69 @@ const add = () => {
 <template>
   <draggable v-model="list" handle=".handle" item-key="id" class="list">
     <template #item="{element}">
-      <div>
-        <svg class="icon handle" aria-hidden="true">
-            <use xlink:href="#icon-tuozhuai"></use>
-        </svg>
+      <div class="list-item">
+        <div class="list-item__left-icon">
+          <svg class="icon handle" aria-hidden="true">
+              <use xlink:href="#icon-drag-processing"></use>
+          </svg>
+        </div>
 
-        <span class="text">{{ element.content }} {{ element.datetime }}</span>
+        <div class="list-item__main">
+          <div class="list-item__main-content">{{ element.content }}</div>
+          <div class="list-item__main-datetime">{{ element.datetime }}</div>
+        </div>
 
         <!-- <input type="text" class="form-control" v-model="element.text" /> -->
 
-        <svg class="icon" aria-hidden="true" @click="delTodo(element)">
-            <use xlink:href="#icon-guanbi"></use>
-        </svg>
+        <div class="list-item__right-icon">
+          <svg class="icon" aria-hidden="true" @click="delTodo(element)">
+              <use xlink:href="#icon-guanbi"></use>
+          </svg>
+        </div>
       </div>
     </template>
   </draggable>
-  <svg class="icon btn-add" aria-hidden="true" @click="add">
-    <use xlink:href="#icon-tianjia"></use>
-  </svg>
+  <div class="add-box">
+    <button>
+      <svg class="icon btn-add" aria-hidden="true" @click="add">
+        <use xlink:href="#icon-tianjia"></use>
+      </svg>
+    </button>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.button {
-  margin-top: 35px;
-}
-
-input {
-  display: inline-block;
-  width: 50%;
-}
-
 .text {
   margin: 20px;
 }
 
 .list {
   text-align: left;
+  .list-item {
+    margin-bottom: 0.2rem;
+    display: flex;
+    .list-item__left-icon,.list-item__right-icon {
+      font-size: 0.3rem;
+      padding: 0 0.1rem;
+    }
+    .list-item__main {
+      flex: 1;
+      min-width: 0;
+      .list-item__main-content,.list-item__main-datetime {
+        line-height: 0.3rem;
+        font-size: 0.2rem;
+      }
+    }
+  }
 }
-
-.btn-add {
-  cursor: pointer;
+.add-box {
+  font-size: 0.3rem;
+  button {
+    padding: 0.2em;
+    width: 100%;
+    .btn-add {
+      cursor: pointer;
+    }
+  }
 }
 </style>
