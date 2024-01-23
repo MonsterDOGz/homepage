@@ -86,8 +86,8 @@ const add = () => {
     </template>
   </draggable>
   <div class="add-box">
-    <button>
-      <svg class="icon btn-add" aria-hidden="true" @click="add">
+    <button @click="add">
+      <svg class="icon btn-add" aria-hidden="true">
         <use xlink:href="#icon-tianjia"></use>
       </svg>
     </button>
