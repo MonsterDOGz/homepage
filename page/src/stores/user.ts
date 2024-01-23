@@ -1,8 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
-import { setLocalStorage, getLocalStorage } from '@/utils/tools'
-import { apiLogin } from '@/request/modules/userApi'
+import { setLocalStorage, getLocalStorage, removeLocalStorage } from '@/utils/tools'
+import { apiLogin, apiLogout } from '@/request/modules/userApi'
 
 
 interface UserInfo {
@@ -19,6 +19,7 @@ export const useUserStore = defineStore('user', () => {
     return !!userInfo.value?.username
   })
 
+  // 登录
   async function login(username: string, password: string) {
     const { code, data, message } = await apiLogin({
       username,
@@ -29,10 +30,23 @@ export const useUserStore = defineStore('user', () => {
       userInfo.value = data
       setLocalStorage('userInfo', JSON.stringify(userInfo.value))
 
-      router.replace({ path:'/'})
+      router.replace({ path:'/' })
     }
   }
 
+  // 退出登录
+  async function logout() {
+    const { code, message } = await apiLogout()
+    alert(message)
+    if (!code) {
+      // 移除本地存储用户信息
+      removeLocalStorage('userInfo')
+      $reset()
+      router.replace({ path:'/login' })
+    }
+  }
+
+  // 重置 state
   function $reset() {
     userInfo.value = JSON.parse(getLocalStorage('userInfo') || 'null')
   }
@@ -41,6 +55,7 @@ export const useUserStore = defineStore('user', () => {
     userInfo,
     isAuthenticated,
     login,
+    logout,
     $reset
   }
 })

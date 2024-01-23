@@ -57,3 +57,15 @@ export function apiLogin(params: ILogin) {
     data: params
   })
 }
+
+/**
+ * @description: 退出登录
+ * @return {*}
+ */
+export function apiLogout() {
+  return axios({
+    url: `${serviceOne}/user/logout`,
+    method: 'post',
+    data: {}
+  })
+}

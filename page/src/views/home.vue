@@ -7,6 +7,7 @@ import 'swiper/scss/effect-cards';
 // import Swiper from 'swiper/bundle';
 // import 'swiper/css/bundle';
 import HomeDraggable from '@/components/HomeDraggable.vue'
+import HomeHeader from '@/components/HomeHeader.vue'
 
 
 onMounted(() => {
@@ -21,18 +22,21 @@ onMounted(() => {
 
 <template>
   <div class="home">
-    <div class="home-title">home</div>
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide swiper-slide--1">
-          <HomeDraggable />
+    <HomeHeader />
+    <div class="home-wrapper">
+      <div class="home-title">home</div>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide swiper-slide--1">
+            <HomeDraggable />
+          </div>
+          <div class="swiper-slide swiper-slide--2">二</div>
+          <div class="swiper-slide swiper-slide--3">三</div>
+          <div class="swiper-slide swiper-slide--4">四</div>
+          <div class="swiper-slide swiper-slide--5">五</div>
+          <div class="swiper-slide swiper-slide--6">六</div>
+          <div class="swiper-slide swiper-slide--7">七</div>
         </div>
-        <div class="swiper-slide swiper-slide--2">二</div>
-        <div class="swiper-slide swiper-slide--3">三</div>
-        <div class="swiper-slide swiper-slide--4">四</div>
-        <div class="swiper-slide swiper-slide--5">五</div>
-        <div class="swiper-slide swiper-slide--6">六</div>
-        <div class="swiper-slide swiper-slide--7">七</div>
       </div>
     </div>
   </div>
@@ -42,6 +46,12 @@ onMounted(() => {
 .home {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.home-wrapper {
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 .home-title {

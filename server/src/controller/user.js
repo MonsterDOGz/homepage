@@ -2,7 +2,7 @@
  * @Author: MonsterDOG
  * @Date: 2023-12-18 11:35:50
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2024-01-22 16:23:25
+ * @LastEditTime: 2024-01-23 15:45:46
  * @FilePath: \homepage\server\src\controller\user.js
  * @Description: user controller
  */
@@ -60,17 +60,26 @@ async function register({ username, password, nickname }) {
  * @param {*} password
  * @return {*}
  */
-async function login({username, password}) {
+async function login(ctx, {username, password}) {
   const userInfo = await getUserInfo(username, password)
   if (!userInfo) {
     // 登录失败
     return new ErrorModel(loginFailInfo)
+  } else {
+    ctx.session.userInfo = userInfo
   }
   return new SuccessModel(userInfo, '登录成功')
+}
+
+async function logout(ctx) {
+  ctx.session = null
+
+  return new SuccessModel(null, '登出成功')
 }
 
 export {
   isExist,
   register,
-  login
+  login,
+  logout
 }

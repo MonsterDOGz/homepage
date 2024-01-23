@@ -38,7 +38,7 @@ const handleCheckPassword = () => {
 
 // 登录
 const handleRegister = async () => {
-  if (showIsExist || showPasswordNotSame) return
+  if (showIsExist.value || showPasswordNotSame.value) return
 
   const { code, message } = await apiRegister({
     username: username.value,
