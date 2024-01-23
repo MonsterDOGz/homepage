@@ -12,9 +12,8 @@ const password = ref('')
 const passwordRepeat = ref('')
 const nickname = ref('')
 
-const showIsExist = ref(false)
-
 // 判断用户名是否存在
+const showIsExist = ref(false)
 const handleIsExist = async () => {
   const {code} = await apiIsExist({
     username: username.value
@@ -27,7 +26,20 @@ const handleIsExist = async () => {
 }
 const inputUsername = _.throttle(handleIsExist, 1000)
 
+// 判断前后两次密码是否一致
+const showPasswordNotSame = ref(false)
+const handleCheckPassword = () => {
+  if (password.value !== passwordRepeat.value) {
+    showPasswordNotSame.value = true
+  } else {
+    showPasswordNotSame.value = false
+  }
+}
+
+// 登录
 const handleRegister = async () => {
+  if (showIsExist || showPasswordNotSame) return
+
   const { code, message } = await apiRegister({
     username: username.value,
     password: MD5(password.value).toString(),
@@ -47,8 +59,11 @@ const handleRegister = async () => {
       <input type="text" v-model="username" placeholder="用户名" @input="inputUsername" />
       <div v-show="showIsExist">用户名已存在</div>
     </p>
-    <p><input type="password" v-model="password" placeholder="密码" /></p>
-    <p><input type="password" v-model="passwordRepeat" placeholder="确认密码" /></p>
+    <p><input type="password" v-model="password" placeholder="密码" @input="handleCheckPassword" /></p>
+    <p>
+      <input type="password" v-model="passwordRepeat" placeholder="确认密码" @input="handleCheckPassword" />
+      <div v-show="showPasswordNotSame">前后两次密码不一致</div>
+    </p>
     <p><input type="text" v-model="nickname" placeholder="昵称" /></p>
     <p><button type="submit">注册</button></p>
   </form>
