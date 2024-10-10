@@ -36,7 +36,7 @@ const handleCheckPassword = () => {
   }
 }
 
-// 登录
+// 注册
 const handleRegister = async () => {
   if (showIsExist.value || showPasswordNotSame.value) return
 
@@ -49,6 +49,11 @@ const handleRegister = async () => {
   if (!code) {
     router.replace('/login')
   }
+}
+
+// 前往登录
+const handleOpenLogin = () => {
+  router.push('/login')
 }
 </script>
 
@@ -66,7 +71,10 @@ const handleRegister = async () => {
         <div v-show="showPasswordNotSame">前后两次密码不一致</div>
       </p>
       <p><input type="text" v-model="nickname" placeholder="昵称" /></p>
-      <p><button type="submit">注册</button></p>
+      <p>
+        <button type="submit">注册</button>
+        <span class="btn-register" @click="handleOpenLogin">前往登录</span>
+      </p>
     </form>
   </div>
 </template>
@@ -82,6 +90,15 @@ const handleRegister = async () => {
   .register-form {
     p {
       margin: 0.2rem 0;
+      position: relative;
+      .btn-register {
+        cursor: pointer;
+        text-decoration: underline;
+        display: inline-block;
+        position: absolute;
+        left: 70%;
+        bottom: 20%;
+      }
     }
   }
 }

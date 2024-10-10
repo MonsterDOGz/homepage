@@ -36,6 +36,7 @@ app.keys = ['UIsdf_7878#$']
 app.use(session({
   key: 'homepage.sid', // cookie name 默认是 'koa.sid'
   prefix: 'homepage:sess:', // redis key 的前缀，默认是 'koa:sess:'
+  rolling: true, // 滚动会话，始终重置 cookie 和会话，默认为 false
   cookie: {
     path: '/',
     httpOnly: true,

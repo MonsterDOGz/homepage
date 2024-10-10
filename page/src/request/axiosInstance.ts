@@ -2,11 +2,13 @@
  * @Author: MonsterDOG
  * @Date: 2024-01-19 09:43:25
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2024-01-22 15:09:09
+ * @LastEditTime: 2024-01-24 15:00:31
  * @FilePath: \homepage\page\src\request\axiosInstance.ts
  * @Description: 基础 axios 实例，请求相应拦截器
  */
 import axios, { AxiosRequestConfig } from 'axios'
+import router from '@/router'
+import { useUserStore } from '@/stores/user'
 
 const instance = axios.create({
   baseURL: '/',
@@ -25,9 +27,15 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    if (response.data.code !== 0) {
-      // 错误
-      console.log('response', response)
+    const { code } = response.data
+    if (code !== 0) {
+      if (code === 10011) {
+        // cookie过期，会话失效
+        const { clearCache } = useUserStore()
+
+        clearCache()
+        router.replace('/login')
+      }
     }
     return response
   },

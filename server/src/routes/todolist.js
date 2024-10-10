@@ -2,26 +2,25 @@
  * @Author: MonsterDOG
  * @Date: 2024-01-17 14:29:50
  * @LastEditors: MonsterDOG
- * @LastEditTime: 2024-01-22 17:57:05
+ * @LastEditTime: 2024-01-24 14:20:38
  * @FilePath: \homepage\server\src\routes\todolist.js
  * @Description: todolist api 路由
  */
 import Router from 'koa-router'
 import { create, update, del, queryList, queryDetail } from '../controller/todolist.js'
+import { sessionExpirationInfo } from '../model/ErrorInfo.js'
+import { ErrorModel } from '../model/ResModel.js'
 
 const router = new Router()
 
 router.prefix('/api/todolist')
 
+// 判断是否登录
 const isLogin = async (ctx, next) => {
   if (ctx.session?.userInfo?._id) {
     await next()
   } else {
-    ctx.body = {
-      code: -1,
-      data: null,
-      message: '请先登录！'
-    }
+    ctx.body = new ErrorModel(sessionExpirationInfo)
   }
 }
 

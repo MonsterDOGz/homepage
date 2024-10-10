@@ -56,6 +56,11 @@ const deleteUserFailInfo = {
   code: 10010,
   message: '删除用户失败'
 }
+// cookie 过期，会话失效
+const sessionExpirationInfo = {
+  code: 10011,
+  message: '登录过期，请重新登录'
+}
 // 创建任务失败
 const createTodolistFailInfo = {
   code: 11001,
@@ -93,6 +98,7 @@ export {
   changeInfoFailInfo,
   jsonSchemaFileInfo,
   deleteUserFailInfo,
+  sessionExpirationInfo,
   createTodolistFailInfo,
   deleteTodolistFailInfo,
   updateTodolistFailInfo,

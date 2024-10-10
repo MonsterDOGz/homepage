@@ -6,6 +6,7 @@ const { logout } = useUserStore()
 
 <template>
   <div class="header">
+    <div class="header__edit">编辑</div>
     <div class="header__title">个人主页</div>
     <div class="header__user">
       <img src="/dog.svg" alt="" class="header__user-profile">
@@ -18,6 +19,12 @@ const { logout } = useUserStore()
 .header {
   box-shadow: 0 0.04rem 0.04rem #eee;
   position: relative;
+}
+.header__edit {
+  position: absolute;
+  top: 50%;
+  left: 2vw;
+  transform: translateY(-50%);
 }
 .header__title {
   height: 6vh;
@@ -36,9 +43,6 @@ const { logout } = useUserStore()
     width: 6vw;
     margin-right: 1vw;
     vertical-align: text-bottom;
-  }
-  .header__user-logout {
-    cursor: pointer;
   }
 }
 </style>

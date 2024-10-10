@@ -1,9 +1,8 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "vue.volar",
-    "vue.vscode-typescript-vue-plugin",
     "obkoro1.korofileheader",
-    "github.vscode-github-actions"
+    "github.vscode-github-actions",
+    "vue.volar"
   ]
 }

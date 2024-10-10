@@ -39,11 +39,15 @@ export const useUserStore = defineStore('user', () => {
     const { code, message } = await apiLogout()
     alert(message)
     if (!code) {
-      // 移除本地存储用户信息
-      removeLocalStorage('userInfo')
-      $reset()
+      clearCache()
       router.replace({ path:'/login' })
     }
+  }
+
+  // 移除本地存储用户信息
+  function clearCache() {
+    removeLocalStorage('userInfo')
+    $reset()
   }
 
   // 重置 state
@@ -56,6 +60,7 @@ export const useUserStore = defineStore('user', () => {
     isAuthenticated,
     login,
     logout,
+    clearCache,
     $reset
   }
 })
