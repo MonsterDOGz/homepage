@@ -1,40 +1,39 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-import Swiper from 'swiper';
-// import { EffectCards } from 'swiper/modules';
-import 'swiper/scss';
-import 'swiper/scss/effect-cards';
-// import Swiper from 'swiper/bundle';
-// import 'swiper/css/bundle';
-import HomeDraggable from '@/components/HomeDraggable.vue'
-import HomeHeader from '@/components/HomeHeader.vue'
+import { ref, onMounted } from 'vue'
+import BScroll from '@better-scroll/core'
+import Slide from '@better-scroll/slide'
 
+BScroll.use(Slide)
+
+const showLoading = ref(false)
 
 onMounted(() => {
-  const swiper = new Swiper('.swiper', {
-    // modules: [EffectCards],
-    initialSlide: 0,
-    // effect: 'cards',
+  const homeBScroll = new BScroll('.slide-wrapper', {
+    scrollX: false,
+    scrollY: true,
+    slide: {
+      threshold: 100
+    },
+    momentum: false,
+    bounce: false,
+    stopPropagation: true
   });
-  console.log(swiper)
+  console.log('homeBScroll', homeBScroll)
 })
 </script>
 
 <template>
   <div class="home">
-    <HomeHeader />
-    <div class="home-wrapper">
-      <div class="swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slide--1">
-            <HomeDraggable />
-          </div>
-          <!-- <div class="swiper-slide swiper-slide--2">二</div>
-          <div class="swiper-slide swiper-slide--3">三</div>
-          <div class="swiper-slide swiper-slide--4">四</div>
-          <div class="swiper-slide swiper-slide--5">五</div>
-          <div class="swiper-slide swiper-slide--6">六</div>
-          <div class="swiper-slide swiper-slide--7">七</div> -->
+    <!-- Loading -->
+    <div class="home-loading" v-if="showLoading">Loading</div>
+    <!-- 轮播，有 2 个 slide -->
+    <div class="home-main">
+      <div class="slide-wrapper">
+        <div class="slide-content">
+          <!-- 视频 -->
+          <div class="slide-page page1"></div>
+          <!-- 重要信息 -->
+          <div class="slide-page page2"></div>
         </div>
       </div>
     </div>
@@ -43,23 +42,40 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .home {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-}
-.home-wrapper {
-  padding: 2vh;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-}
-.swiper {
-  height: 100%;
-  .swiper-wrapper {
-    height: 100%;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  .home-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #d4d4d4;
+    text-align: center;
+    padding-top: 40vh;
   }
-  .swiper-slide {
+  .home-main {
+    width: 100%;
     height: 100%;
+    .slide-wrapper {
+      width: 100%;
+      height: 100%;
+      .slide-content {
+        height: 100%;
+        overflow: hidden;
+        .slide-page {
+          display: inline-block;
+          width: 100%;
+          &.page1 {
+            background-color: #D6EADF;
+          }
+          &.page2 {
+            background-color: #DDA789;
+          }
+        }
+      }
+    }
   }
 }
 </style>

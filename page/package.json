@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@better-scroll/core": "^2.5.1",
+    "@better-scroll/slide": "^2.5.1",
     "@types/lodash": "^4.14.202",
     "axios": "^1.6.5",
     "crypto-js": "^4.2.0",

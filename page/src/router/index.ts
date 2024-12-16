@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { useUserStore } from '@/stores/user'
+// import { useUserStore } from '@/stores/user'
 
 
 const routes = [
   { path: '/', name: 'Home', component: () => import('@/views/home.vue') },
-  { path: '/register', name: 'Register', component: () => import('@/views/register.vue') },
-  { path: '/login', name: 'Login', component: () => import('@/views/login.vue') },
+  // { path: '/register', name: 'Register', component: () => import('@/views/register.vue') },
+  // { path: '/login', name: 'Login', component: () => import('@/views/login.vue') },
 ]
 
 const router = createRouter({
@@ -14,25 +14,25 @@ const router = createRouter({
   routes,
 })
 
-const whiteList = [
-  'Register',
-  'Login'
-]
+// const whiteList = [
+//   'Register',
+//   'Login'
+// ]
 
-router.beforeEach((to) => {
-  const { isAuthenticated } = useUserStore()
+router.beforeEach(() => {
+  // const { isAuthenticated } = useUserStore()
 
-  if (
-    // 白名单
-    whiteList.indexOf(to.name as string) === -1 &&
-    // 检查用户是否已登录
-    !isAuthenticated &&
-    // ❗️ 避免无限重定向
-    to.name !== 'Login'
-  ) {
-    // 将用户重定向到登录页面
-    return { name: 'Login', replace: true }
-  }
+  // if (
+  //   // 白名单
+  //   whiteList.indexOf(to.name as string) === -1 &&
+  //   // 检查用户是否已登录
+  //   !isAuthenticated &&
+  //   // ❗️ 避免无限重定向
+  //   to.name !== 'Login'
+  // ) {
+  //   // 将用户重定向到登录页面
+  //   return { name: 'Login', replace: true }
+  // }
 })
 
 export default router
