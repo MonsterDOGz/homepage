@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   server: {
-    host: '192.168.129.231',
+    host: '192.168.128.188',
     open: true,
     proxy: {
       // 字符串简写写法：http://localhost:5173/api -> http://localhost:8000/api
