@@ -55,7 +55,6 @@ const initMap = () => {
         strokeWidth: 2,
       }),
     },
-    // enableCollision: true, // 开启碰撞
     geometries: [
       {
         styleId: 'small',
