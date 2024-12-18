@@ -9,6 +9,7 @@ const showLoading = ref(false)
 // setTimeout(() => {
 //   showLoading.value = false
 // }, 5000)
+const page1Video = ref<HTMLVideoElement | null>(null)
 
 const initScroll = () => {
   const homeBScroll = new BScroll('.slide-wrapper', {
@@ -65,9 +66,17 @@ const initMap = () => {
   });
 }
 
+const initVideo = () => {
+  window.addEventListener('load', () => {
+    console.log('page1Video?.value', page1Video?.value?.play)
+    page1Video?.value?.play()
+  })
+}
+
 onMounted(() => {
   initScroll()
   initMap()
+  initVideo()
 })
 </script>
 
@@ -83,7 +92,10 @@ onMounted(() => {
         <div class="slide-content">
           <!-- 视频 -->
           <div class="slide-page page1">
-            <video src="http://121.40.120.88:8080/video/wedd-video.mp4" controls></video>
+            <video src="http://121.40.120.88/public/video/wedd-video.mp4" autoplay loop ref="page1Video">
+              <!-- <source src="http://121.40.120.88/public/video/wedd-video.mp4" type="video/mp4"> -->
+              您的浏览器不支持 video 标签。
+            </video>
           </div>
           <!-- 重要信息 -->
           <div class="slide-page page2">
@@ -155,6 +167,7 @@ onMounted(() => {
           video {
             width: 100%;
             height: 100%;
+            object-fit: cover;
           }
         }
         .page2 {
@@ -209,4 +222,10 @@ onMounted(() => {
     }
   }
 }
+
+video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
 </style>
