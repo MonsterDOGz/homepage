@@ -5,6 +5,7 @@ import bodyparser from 'koa-bodyparser'
 import logger from 'koa-logger'
 import session from 'koa-generic-session'
 import redisStore from 'koa-redis'
+import koaStatic from 'koa-static'
 
 import { REDIS_CONF } from './conf/db.js'
 import { isProd } from './utils/env.js'
@@ -30,6 +31,8 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
+// 配置静态web服务的中间件
+app.use(koaStatic(__dirname+'../static')); // __dirname是当前文件夹
 
 // session 配置
 app.keys = ['UIsdf_7878#$']

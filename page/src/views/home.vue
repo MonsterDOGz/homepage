@@ -82,7 +82,9 @@ onMounted(() => {
       <div class="slide-wrapper">
         <div class="slide-content">
           <!-- 视频 -->
-          <div class="slide-page page1"></div>
+          <div class="slide-page page1">
+            <video src="http://121.40.120.88:8080/video/wedd-video.mp4" controls></video>
+          </div>
           <!-- 重要信息 -->
           <div class="slide-page page2">
             <div class="page2_main">
@@ -135,16 +137,24 @@ onMounted(() => {
       width: 100%;
       height: 100%;
       .slide-content {
+        width: 100%;
         height: 100%;
         overflow: hidden;
         .slide-page {
           display: inline-block;
           width: 100%;
+          height: 100%;
           &.page1 {
             background-color: #D6EADF;
           }
           &.page2 {
             background-color: #DDA789;
+          }
+        }
+        .page1 {
+          video {
+            width: 100%;
+            height: 100%;
           }
         }
         .page2 {
