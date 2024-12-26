@@ -1,14 +1,12 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import BScroll from '@better-scroll/core'
 import Slide from '@better-scroll/slide'
 
 BScroll.use(Slide)
 
-const showLoading = ref(false)
-// setTimeout(() => {
-//   showLoading.value = false
-// }, 5000)
+const showLoading = ref(true)
+const showButton = ref(true)
 const page1Video = ref<HTMLVideoElement | null>(null)
 
 const initScroll = () => {
@@ -22,9 +20,18 @@ const initScroll = () => {
     },
     momentum: false,
     bounce: false,
-    stopPropagation: true
+    stopPropagation: false,
+    click: true,
   });
-  console.log('homeBScroll', homeBScroll)
+  homeBScroll.on('slidePageChanged', (page: any) => {
+    const {pageY} = page
+    if (pageY === 0 && !showButton.value) {
+      handleVideoPlay()
+    }
+    if (pageY === 1) {
+      handleVideoPause()
+    }
+  })
 }
 
 const initMap = () => {
@@ -39,7 +46,6 @@ const initMap = () => {
       // },
   }
   const map = new window.TMap.Map(document.getElementById("map"), myOptions); //地图实例
-  console.log('map', map)
   new window.TMap.MultiMarker({
     map: map, // 显示Marker图层的底图
     styles: {
@@ -66,34 +72,73 @@ const initMap = () => {
   });
 }
 
-const initVideo = () => {
-  window.addEventListener('load', () => {
-    console.log('page1Video?.value', page1Video?.value?.play)
-    page1Video?.value?.play()
-  })
+const clickPlayButton = () => {
+  showButton.value = false
+  handleVideoPlay()
+}
+
+const handleVideoPlay = () => {
+  page1Video.value?.play().catch(function(error) {
+    console.log('Video playback failed: ', error);
+  });
+}
+
+const handleVideoPause = () => {
+  page1Video.value?.pause();
+}
+
+const handleVideoEnded = (e: any) => {
+  console.log(e)
+}
+
+const handleWindowLoad = (time: number = 3000) => {
+  console.log('页面所有资源加载完成');
+  setTimeout(() => {
+    showLoading.value = false
+  }, time)
+}
+
+const onWindowLoad = () => {
+  handleWindowLoad(1500);
 }
 
 onMounted(() => {
   initScroll()
   initMap()
-  initVideo()
+
+  if (document.readyState === 'complete') {
+    console.log('complete');
+    // 页面已经完全加载
+    handleWindowLoad(3000);
+  } else {
+    console.log('load');
+    window.addEventListener('load', onWindowLoad);
+  }
+})
+onUnmounted(() => {
+  window.removeEventListener('load', onWindowLoad);
 })
 </script>
 
 <template>
   <div class="home">
     <!-- Loading -->
-    <div class="home-loading" v-if="showLoading">
-      <svg t="1734418764801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1532" width="200" height="200"><path d="M272 704a47.84 47.84 0 0 0-33.936 14.064l-96 96a48 48 0 1 0 67.872 67.872l96-96A48 48 0 0 0 272 704z m-48-192a48 48 0 0 0-48-48H48a48 48 0 1 0 0 96h128a48 48 0 0 0 48-48z m-14.064-369.936a48 48 0 1 0-67.872 67.872l96 96a48 48 0 1 0 67.872-67.872l-96-96zM752 320a47.84 47.84 0 0 0 33.936-14.064l96-96a48 48 0 1 0-67.872-67.872l-96 96A48 48 0 0 0 752 320z m33.936 398.064a48 48 0 1 0-67.872 67.872l96 96a48 48 0 1 0 67.872-67.872l-96-96zM512 800a48 48 0 0 0-48 48v128a48 48 0 1 0 96 0v-128a48 48 0 0 0-48-48z m464-336h-128a48 48 0 1 0 0 96h128a48 48 0 1 0 0-96zM512 0a48 48 0 0 0-48 48v128a48 48 0 1 0 96 0V48a48 48 0 0 0-48-48z" fill="" p-id="1533"></path></svg>
-    </div>
+    <transition>
+      <div class="home-loading" v-if="showLoading">
+        <img src="../assets/preloader.gif" alt="">
+      </div>
+    </transition>
     <!-- 轮播，有 2 个 slide -->
     <div class="home-main">
       <div class="slide-wrapper">
         <div class="slide-content">
           <!-- 视频 -->
           <div class="slide-page page1">
-            <video src="http://121.40.120.88/public/video/wedd-video.mp4" autoplay loop ref="page1Video">
-              <!-- <source src="http://121.40.120.88/public/video/wedd-video.mp4" type="video/mp4"> -->
+            <div class="page1-button" v-if="showButton" @click="clickPlayButton()">
+              <svg t="1735027449760" class="icon" viewBox="0 0 1032 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12659" width="200" height="200"><path d="M688.702466 1008.246154H327.35955C151.174396 1008.246154 7.815862 864.918883 7.815862 688.702466V327.35955C7.815862 151.174396 151.174396 7.815862 327.35955 7.815862h361.342916C864.903251 7.815862 1008.246154 151.174396 1008.246154 327.35955v361.342916c0 176.216417-143.342903 319.543688-319.543688 319.543688z m256.688528-680.886604c0-141.77973-114.92443-256.70416-256.688528-256.704161H327.35955c-141.748467 0-256.70416 114.92443-256.704161 256.704161v361.342916c0 141.77973 114.955693 256.70416 256.704161 256.70416h361.342916c141.764099 0 256.688529-114.92443 256.688528-256.70416V327.35955zM696.659013 900.856215H319.403003c-112.595303 0-204.18157-91.601899-204.18157-204.197202a20.977773 20.977773 0 0 1 41.90865 0c0 89.491616 72.781304 162.288551 162.27292 162.288551h377.25601c89.491616 0 162.288551-72.796935 162.288551-162.288551V302.614532a20.946509 20.946509 0 1 1 41.908651 0v394.044481c0 112.595303-91.601899 204.197202-204.197202 204.197202zM384.1496 331.17369l316.245395 158.114881a20.946509 20.946509 0 0 1 0 37.484873L384.1496 684.903957a21.024668 21.024668 0 0 1-20.399398-0.90664 20.993404 20.993404 0 0 1-9.910513-17.835796v-316.229763a20.930878 20.930878 0 0 1 30.309911-18.758068z m11.567476 301.098255L644.183318 508.031008l-248.466242-124.194042v248.434979z m405.299322-437.062984a162.36671 162.36671 0 0 0-104.357385-38.09451H319.403003c-89.491616 0-162.27292 72.796935-162.27292 162.288552v247.684655a20.946509 20.946509 0 0 1-41.90865 0V319.403003c0-112.595303 91.586267-204.18157 204.18157-204.18157h377.25601a204.462941 204.462941 0 0 1 131.337739 47.926863c8.847555 7.456332 9.973039 20.665138 2.547971 29.543957a21.009036 21.009036 0 0 1-29.528325 2.516708z" fill="#FF7878" p-id="12660"></path></svg>
+            </div>
+            <video ref="page1Video" loop @ended="handleVideoEnded">
+              <source src="http://121.40.120.88/public/video/wedd-video.mp4" type="video/mp4">
               您的浏览器不支持 video 标签。
             </video>
           </div>
@@ -118,10 +163,14 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@keyframes myRotate
-{
-	from {transform: rotate(0deg);}
-	to {transform: rotate(360deg);}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.35s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 .home {
@@ -129,17 +178,22 @@ onMounted(() => {
   height: 100vh;
   position: relative;
   .home-loading {
+	  width: 100%;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    background: #d4d4d4;
-    text-align: center;
-    padding-top: 40vh;
-    .icon {
-      font-size: 0.5rem;
-      animation: myRotate 3s linear infinite;
+    z-index: 100;
+    background: #fff;
+    img {
+      width: 100%;
+      max-width: 800px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%)
     }
   }
   .home-main {
@@ -164,6 +218,22 @@ onMounted(() => {
           }
         }
         .page1 {
+          position: relative;
+          .page1-button {
+            width: 1rem;
+            height: 1rem;
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            .icon {
+              font-size: 1rem;
+            }
+          }
           video {
             width: 100%;
             height: 100%;
@@ -173,11 +243,11 @@ onMounted(() => {
         .page2 {
           position: relative;
           .page2_main {
-            width: 80vw;
-            height: 80vw;
+            width: 80%;
+            height: 80%;
             background-color: #fff;
             box-sizing: border-box;
-            padding: 0 5vw;
+            padding: 0 5%;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -206,11 +276,11 @@ onMounted(() => {
           .page2_button {
             width: 100%;
             position: absolute;
-            bottom: 10vh;
+            bottom: 10%;
             display: flex;
             justify-content: space-around;
             button {
-              width: 44vw;
+              width: 44%;
               height: 2.5em;
               border-radius: 1.25em;
               box-sizing: border-box;
